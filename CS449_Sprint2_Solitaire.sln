@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CS449_Sprint2_Solitaire", "CS449_Sprint2_Solitaire\CS449_Sprint2_Solitaire.pyproj", "{01F75300-7579-489B-9A33-6F3B1C48B290}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01F75300-7579-489B-9A33-6F3B1C48B290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F75300-7579-489B-9A33-6F3B1C48B290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C266E80-0D08-4F6C-B1C3-F951BF89D1DE}
+	EndGlobalSection
+EndGlobal
