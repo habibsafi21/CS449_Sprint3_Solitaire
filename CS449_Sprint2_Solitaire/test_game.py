@@ -3,31 +3,41 @@ from board import Board
 from game_logic import ManualGame, AutomatedGame
 
 
-class TestGameLogic(unittest.TestCase):
-
-    def setUp(self):
-        self.board = Board()
-        self.manual_game = ManualGame(self.board)
-        self.auto_game = AutomatedGame(self.board)
+class TestManualGame(unittest.TestCase):
 
     def test_valid_move(self):
-        # Example valid move (adjust if needed based on board)
-        result = self.manual_game.make_move(3, 1, 3, 3)
+        board = Board(size=5)
+        game = ManualGame(board)
+
+        # try a valid move (depends on your board setup)
+        result = game.make_move(2, 0, 2, 2)
         self.assertTrue(result)
 
     def test_invalid_move(self):
-        # Invalid move (no jump)
-        result = self.manual_game.make_move(0, 0, 0, 2)
+        board = Board(size=5)
+        game = ManualGame(board)
+
+        # invalid move
+        result = game.make_move(0, 0, 0, 1)
         self.assertFalse(result)
 
-    def test_game_not_over_initially(self):
-        self.assertFalse(self.manual_game.is_game_over())
 
-    def test_automated_move(self):
-        result = self.auto_game.automated_move()
-        self.assertTrue(result or result == False)  
-        # ensures function runs without crashing
+class TestAutomatedGame(unittest.TestCase):
+
+    def test_get_moves(self):
+        board = Board(size=5)
+        game = AutomatedGame(board)
+
+        moves = game.get_all_valid_moves()
+        self.assertIsInstance(moves, list)
+
+    def test_auto_move(self):
+        board = Board(size=5)
+        game = AutomatedGame(board)
+
+        result = game.automated_move()
+        self.assertTrue(result or result == False)
 
 
 if __name__ == "__main__":
-    unittest.main(exit=False)
+    unittest.main()

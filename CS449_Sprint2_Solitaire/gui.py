@@ -1,7 +1,7 @@
 ﻿import tkinter as tk
 from tkinter import messagebox
 from board import Board
-from game_logic import GameLogic
+from game_logic import ManualGame, AutomatedGame
 
 
 class SolitaireGUI:
@@ -18,11 +18,25 @@ class SolitaireGUI:
         size_menu = tk.OptionMenu(root, self.size_var, 5, 7, 9)
         size_menu.grid(row=1, column=8)
 
+        # game mode selector
+        self.mode_var = tk.StringVar(value="Manual")
+
+        mode_label = tk.Label(root, text="Game Mode:")
+        mode_label.grid(row=2, column=8)
+
+        mode_menu = tk.OptionMenu(root, self.mode_var, "Manual", "Automated")
+        mode_menu.grid(row=3, column=8)
+
+        # new game button
         new_game_btn = tk.Button(root, text="New Game", command=self.new_game)
-        new_game_btn.grid(row=2, column=8)
+        new_game_btn.grid(row=4, column=8)
+
+        # 🔥 NEW: randomize button
+        random_btn = tk.Button(root, text="Randomize", command=self.randomize_board)
+        random_btn.grid(row=5, column=8)
 
         self.board = Board(size=7)
-        self.game = GameLogic(self.board)
+        self.game = ManualGame(self.board)
 
         self.buttons = []
         self.selected = None
@@ -55,6 +69,10 @@ class SolitaireGUI:
                     self.buttons[r][c]["text"] = ""
 
     def handle_click(self, r, c):
+        # only allow manual clicks
+        if self.mode_var.get() != "Manual":
+            return
+
         if self.selected is None:
             if self.board.grid[r][c] == 1:
                 self.selected = (r, c)
@@ -71,10 +89,16 @@ class SolitaireGUI:
 
     def new_game(self):
         size = self.size_var.get()
-
         self.board = Board(size=size)
-        self.game = GameLogic(self.board)
 
+        mode = self.mode_var.get()
+
+        if mode == "Manual":
+            self.game = ManualGame(self.board)
+        else:
+            self.game = AutomatedGame(self.board)
+
+        # clear old buttons
         for row in self.buttons:
             for btn in row:
                 btn.destroy()
@@ -83,3 +107,31 @@ class SolitaireGUI:
 
         self.create_board()
 
+        # start automated mode
+        if mode == "Automated":
+            self.auto_play()
+
+    def auto_play(self):
+        auto_game = AutomatedGame(self.board)
+
+        def step():
+            moved = auto_game.automated_move()
+            self.update_board()
+
+            if moved:
+                self.root.after(500, step)
+            else:
+                messagebox.showinfo("Game Over", "Automated game finished!")
+
+        step()
+
+    # 🔥 RANDOMIZE FUNCTION
+    def randomize_board(self):
+        auto_game = AutomatedGame(self.board)
+
+        for _ in range(5):
+            moved = auto_game.automated_move()
+            if not moved:
+                break
+
+        self.update_board()

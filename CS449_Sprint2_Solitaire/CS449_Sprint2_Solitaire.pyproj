@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>01f75300-7579-489b-9a33-6f3b1c48b290</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_game.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
